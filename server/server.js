@@ -29,8 +29,14 @@ app.get("/", (req, res) => {
   res.json({ message: "This is my root route" });
 });
 
-// app.get("/data", async (req, res) => {
-//   const query = await db.query(``);
-//   res.json(query.rows);
-//   console.log(query);
-// });
+app.get("/data", async (req, res) => {
+  const query = await db.query(`SELECT * FROM data`);
+  res.json(query.rows);
+  console.log(query);
+});
+
+app.post("/add-data", function (req, res) {
+  const data = req.body;
+
+  res.json({ status: "Data received" });
+});
