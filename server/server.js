@@ -37,6 +37,10 @@ app.get("/data", async (req, res) => {
 
 app.post("/add-data", function (req, res) {
   const data = req.body;
-
+  db.query(
+    `INSERT INTO data(name, location, message_post)
+    VALUES ($1, $2, $3)`,
+    [data.name, data.location, data.message_post]
+  );
   res.json({ status: "Data received" });
 });
