@@ -1,4 +1,3 @@
-import "./style.css";
 console.log(document);
 
 const messageForm = document.getElementById("message-form");
@@ -15,78 +14,77 @@ function togglePopup() {
 openPopupButton.addEventListener("click", togglePopup);
 closePopupButton.addEventListener("click", togglePopup);
 
-function handleSubmitButton(event) {
-  event.preventDefault();
-  const formData = new FormData(messageForm);
-  const formValues = Object.fromEntries(formData);
-  console.log(formValues);
-}
-fetch("http://localhost:8080/data", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ formValues }),
-});
 messageForm.addEventListener("submit", handleSubmitButton);
 console.log(handleSubmitButton);
 
-// from database to dom
-// async function getData() {
-//   const response = await fetch("http://localhost:8080/data");
-//   console.log("HTTP Response:", response);
-//   const json = await response.json();
-//   console.log("JSON Data:", json);
-//   return json;
-// }
-
-// async function createData() {
-//   const data = await getData();
-//   data.forEach((feedback) => {
-//     const h1 = document.createElement("h1");
-//     h1.textContent = feedback.name;
-//     feedbackContainer.appendChild(h1);
-
-//     const h2 = document.createElement("h2");
-//     h2.textContent = feedback.date_visited;
-//     feedbackContainer.appendChild(h2);
-
-//     const h3 = document.createElement("h3");
-//     h3.textContent = feedback.device_used;
-//     feedbackContainer.appendChild(h3);
-
-//     const p = document.createElement("p");
-//     p.textContent = feedback.comments;
-//     feedbackContainer.appendChild(p);
-//   });
-// }
-
-// createData();
-
-async function fetchReviews() {
-  const response = await fetch(`${renderURL}data`);
-  // "http://localhost:8080/data"
-  const reviews = await response.json();
-  reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-  reviewContainer.innerHTML = "";
-  reviews.forEach((review) => {
-    addReviewToPage(review);
-  });
-}
-
-function addReviewToPage(review) {
-  const reviewElement = document.createElement("p");
-  const date = new Date(review.date);
+function addForumMessageToPage(data) {
+  const forumMessageElement = document.createElement("p");
+  const date = data.date ? new Date(data.date) : new Date();
   const formattedDate = date.toLocaleString("en-GB", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
   });
-  reviewElement.innerHTML = `
-  name: ${review.name} <br> 
+  forumMessageElement.innerHTML = `
+  name: ${data.name} <br> 
+  location: ${data.location} <br>
+  message_post: ${data.message_post} <br>
   date: ${formattedDate} <br>
-  review: ${review.review} <br>
-  star: ${review.star} <br>
-  `;
-  reviewContainer.appendChild(reviewElement);
+<button class="likeButton" data-id="${data.id}">like</button>
+<button class="deleteButton" data-id="${data.id}">Delete</button>`;
+  messageContainer.appendChild(forumMessageElement);
 }
+
+async function fetchData() {
+  const response = await fetch("http://localhost:8080/data");
+  const forumMessage = await response.json();
+  forumMessage.sort((a, b) => new Date(b.date) - new Date(a.date));
+  messageContainer.innerHTML = "";
+  forumMessage.forEach((data) => {
+    addForumMessageToPage(data);
+  });
+}
+
+async function handleSubmitButton(event) {
+  event.preventDefault();
+  const formData = new FormData(messageForm);
+  const formValues = Object.fromEntries(formData);
+  formValues.date = new Date().toISOString();
+  console.log(formValues);
+
+  const response = await fetch("http://localhost:8080/add-data", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formValues),
+  });
+  const newMessage = await response.json();
+  addForumMessageToPage(newMessage);
+  messageForm.reset();
+}
+
+messageForm.addEventListener("submit", handleSubmitButton);
+fetchData();
+
+//async function handleDelete(enter the id here) {
+// const confirmed = confirm("Are you sure you want to delete this post?");
+//if (confirmed) {
+//  await fetch(`http://localhost:8080/data/${enter id here}`, {
+//   method: 'DELETE',
+// });
+// Remove the review element from the DOM
+// reviewElement.remove();
+// console.log(`Deleted message with id: ${enter correct id here}`);
+//}
+//}
+// these are the listener for the DOM buttons we will create when fetching the data from the server
+//(correct id)Element.querySelector(".like-button").addEventlistener('click', () => handleLike(id));
+//(put correct id here)Element.querySelector(".delete-button").addEventlistener('click', () => handleDelete(id));
+//these need to be added to the addForumMessageToPage function
+//<button class="likeButton" data-id='${corrct id here}'>like</button>
+//<button class="deleteButton" data-id="${review.id}">Delete</button>
