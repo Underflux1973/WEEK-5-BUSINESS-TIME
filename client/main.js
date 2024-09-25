@@ -144,7 +144,7 @@ async function handleLike(id, element) {
 async function handleDelete(id, element) {
   const confirmed = confirm("Are you sure you want to delete this post?");
   if (confirmed) {
-    await fetch(`http://localhost:8080/${id}`, {
+    await fetch(`http://localhost:8080/add/${id}`, {
       method: "DELETE",
     });
     element.remove(); // Remove the message from the UI
