@@ -55,7 +55,7 @@ app.post("/add-data", async (req, res) => {
     const result = await db.query(
       `INSERT INTO data(name, location, message_post, likes, board, timestamp)
       VALUES ($1, $2, $3, 0, $4, CURRENT_TIMESTAMP) RETURNING *`,
-      [name, location, message_post, board, timestamp]
+      [name, location, message_post, board]
     );
     res.json(result.rows[0]); // Send the newly created message as a response
   } catch (error) {
