@@ -6,6 +6,7 @@ const closePopupButton = document.getElementById("btn-close-popup");
 const tabButtons = document.querySelectorAll(".tab-button");
 const loadingIndicator = document.getElementById("loading");
 let activeBoard = "chat";
+const darkModeToggle = document.getElementById("darkMode");
 
 function togglePopup() {
   const overlay = document.getElementById("popupOverlay");
@@ -176,3 +177,20 @@ function showNotification(message) {
 
 // Load the default board on startup
 fetchData(activeBoard);
+
+//darkmode stuff
+//checking if darkmode enabled previously
+if (localStorage.getItem("dark-mode") === "enabled") {
+  document.body.classList.add("dark-mode");
+}
+
+//toggle dark mode on button click
+darkModeToggle.addEventListener("click", function () {
+  document.body.classList.toggle("dark-mode");
+
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("dark-mode", "enable");
+  } else {
+    localStorage.removeItem("dark-mode");
+  }
+});
