@@ -1,6 +1,6 @@
 ## WEEK-5-BUSINESS-TIME
 
-## Messaging board applicstion 
+## Messaging board website  
 to allow users to connect and leave posts 
 as well as switch between different messaging boards at a button press
 so you can leave posts concerning on different subjects currently we have 
