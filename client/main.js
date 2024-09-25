@@ -182,3 +182,29 @@ darkModeToggle.addEventListener("click", function () {
     localStorage.removeItem("dark-mode");
   }
 });
+
+const foodContainer = document.getElementById("food-container");
+
+async function getFood() {
+  const response = await fetch("https://foodish-api.com/api/");
+  console.log(response);
+  const data = await response.json();
+  console.log(data);
+  const wrangledData = data.image;
+  console.log(wrangledData);
+  return wrangledData;
+}
+
+function createFood(foodUrl) {
+  const foodImage = document.createElement("img");
+  foodImage.src = foodUrl;
+  foodImage.alt = "A random picture of food";
+  foodContainer.appendChild(foodImage);
+}
+
+async function addFoodToThePage() {
+  const getFodData = await getFood();
+  createFood(getFodData);
+}
+
+addFoodToThePage();
