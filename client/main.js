@@ -1,3 +1,5 @@
+console.log(document);
+
 const messageForm = document.getElementById("message-form");
 const openPopupButton = document.getElementById("btn-open-popup");
 const closePopupButton = document.getElementById("btn-close-popup");

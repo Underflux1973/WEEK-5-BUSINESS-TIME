@@ -30,6 +30,11 @@ nav {
 .tab-button.active {
   background-color: rgb(187, 71, 4);
 }
+h1 {
+  text-align: center;
+  color: salmon;
+  text-shadow: 2px 2px 2px #333;
+}
 
 #btn-open-popup {
   display: block;
