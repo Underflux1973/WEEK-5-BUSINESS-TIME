@@ -90,11 +90,7 @@ async function fetchData(board) {
   showLoadingIndicator(); // Show loading indicator
   const response = await fetch(`http://localhost:8080/data?board=${board}`);
   const forumMessages = await response.json();
-  forumMessages.sort((a, b) => {
-    const dateA = new Date(a.timestamp);
-    const dateB = new Date(b.timestamp);
-    return dateB - dateA; // Sort in descending order
-  });
+  forumMessages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
   document.getElementById(board).innerHTML = ""; // Clear previous messages
   forumMessages.forEach((data) => {
