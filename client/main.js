@@ -106,7 +106,7 @@ async function handleSubmitButton(event) {
   if (
     !formValues.name.trim() ||
     !formValues.location.trim() ||
-    !formValues.textBox.trim()
+    !formValues.message_post.trim()
   ) {
     showNotification("Please fill out all fields."); // Show notification for errors
     return;
