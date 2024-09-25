@@ -1,6 +1,30 @@
 body {
-  background-color: teal;
+  background-color: rgb(219, 240, 240);
+  color: black;
   font-family: Arial, sans-serif; /* Set a clean font */
+  transition: background-color 0.5s, color 0.5s;
+}
+
+body.dark-mode {
+  background-color: #333;
+  color: azure;
+  transition: background-color 0.3s ease;
+}
+
+#darkMode {
+  padding: 10px 20px;
+  margin: 0 5px;
+  background-color: peru;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#darkMode:hover,
+#darkMode.active {
+  background-color: rgb(187, 71, 4);
 }
 
 h1 {
@@ -88,14 +112,15 @@ h1 {
 
 .message-container {
   display: none; /* Hide all containers initially */
-}
-
-.message-container.active {
-  display: block; /* Show only the active container */
   margin-top: 20px;
   padding: 10px;
   background-color: white;
   border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.message-container.active {
+  display: block; /* Show only the active container */
 }
 
 .forum-message {
@@ -106,6 +131,21 @@ h1 {
   background-color: #f9f9f9;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .message-container {
+  background-color: #222;
+  border: solid 1px #444;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .forum-message {
+  background-color: #333;
+  border: solid 1px #444;
+  color: #fff;
+  transition: background-color 0.3s ease;
 }
 
 .forum-message:hover {
