@@ -50,7 +50,6 @@ tabButtons.forEach((button) => {
     // Check if the active board is 'health-and-wellness'
     if (activeBoard === "health-and-wellness") {
       // Fetch and display food image
-      await addFoodToThePage();
     }
   });
 });

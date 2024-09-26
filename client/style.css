@@ -194,10 +194,15 @@ body.dark-mode .forum-message {
   transition: opacity 0.5s ease;
 }
 
+#food-container {
+  display: flex;
+  justify-content: center;
+}
+
 #food-container > img {
   height: 300px;
   width: 300px;
-  object-fit: scale-down;
+  object-fit: cover;
 }
 /*mobile media query*/
 @media screen and (max-width: 600px) {
