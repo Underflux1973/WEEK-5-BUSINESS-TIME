@@ -170,4 +170,6 @@ body.dark-mode .forum-message {
   height: 300px;
   width: 300px;
   object-fit: scale-down;
+  position: sticky;
+  top: 0px;
 }
