@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="./main.js" defer></script>
-    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
     <script
       src="https://kit.fontawesome.com/3f5e786f5f.js"
       crossorigin="anonymous"
@@ -14,20 +14,88 @@
   <body>
     <header>
       <h1>IT'S BUSINESS TIME!!!</h1>
+      <div id="login-popup">
+        <button id="btn-open-login-popup" class="button">Login</button>
+        <div id="login-popup-overlay">
+          <div id="login-popup-box">
+            <div id="login-error-msg-holder" style="display: none">
+              <p id="login-error-msg">
+                Invalid username
+                <span id="error-msg-second-line">and/or password</span>
+              </p>
+            </div>
+
+            <form id="login-form">
+              <h2>Login</h2>
+              <input
+                type="text"
+                name="username"
+                id="username-field"
+                class="login-form-field"
+                placeholder="Username"
+                required
+              />
+              <input
+                type="password"
+                name="password"
+                id="password-field"
+                class="login-form-field"
+                placeholder="Password"
+                required
+              />
+              <input
+                type="submit"
+                value="Login"
+                id="login-form-submit"
+                class="button"
+              />
+            </form>
+
+            <button id="register-here-button" class="button">
+              Register Here
+            </button>
+
+            <div id="create-account-section" style="display: none">
+              <h3>Create Account</h3>
+              <input
+                type="text"
+                name="new-username"
+                id="new-username-field"
+                class="login-form-field"
+                placeholder="New Username (min 6 chars)"
+                required
+              />
+              <input
+                type="password"
+                name="new-password"
+                id="new-password-field"
+                class="login-form-field"
+                placeholder="New Password (1 number, 1 symbol)"
+                required
+              />
+              <button id="create-account-button" class="button">
+                Create Account
+              </button>
+            </div>
+
+            <button id="btn-close-login-popup" class="button">Close</button>
+          </div>
+        </div>
+      </div>
       <nav>
         <button class="tab-button" data-board="chat">Chat</button>
         <button class="tab-button" data-board="health-and-wellness">
           Health and Wellness
         </button>
         <button class="tab-button" data-board="advice">Advice</button>
+        <button id="darkMode">
+          <i id="modeIcon" class="fa-solid fa-moon"></i>
+        </button>
       </nav>
-      <button id="darkMode"><i id="modeIcon" class="fa-solid fa-moon"></i></i></button>
     </header>
     <main>
-      <!-- Popup button for opening the message form -->
       <button id="btn-open-popup">Click to Open <br />Form here</button>
 
-      <!-- Popup overlay and form -->
       <div id="popupOverlay">
         <div id="popup-box">
           <form id="message-form">
@@ -49,7 +117,6 @@
               required
             />
             <br />
-
             <label for="message_post">Text Box:</label><br />
             <textarea
               id="message_post"
@@ -65,17 +132,14 @@
           <button id="btn-close-popup">Close</button>
         </div>
       </div>
-      <div id="food-container">
-      </div>
 
-      <!-- Dynamic message containers for each board -->
-      <div id="chat" class="message-container active"></div>
       <div id="food-container">
         <p>
-          Having trouble thinking about what to have for dinner? Here are some
-          visual ideas!
+          If you have trouble thinking about what to have for dinner, here are
+          some visual ideas!
         </p>
       </div>
+      <div id="chat" class="message-container active"></div>
       <div id="health-and-wellness" class="message-container"></div>
       <div id="advice" class="message-container"></div>
       <div id="loading" class="loading-indicator" style="display: none">
