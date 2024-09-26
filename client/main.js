@@ -149,7 +149,7 @@ async function handleSubmitButton(event) {
 
 async function handleLike(id, element) {
   const response = await fetch(
-    `https://weekdata-5-business-time-7zfd.onrender.com/data/${id}/like`,
+    `https://week-5-business-time-7zfd.onrender.com/data/${id}/like`,
     {
       method: "POST",
     }
