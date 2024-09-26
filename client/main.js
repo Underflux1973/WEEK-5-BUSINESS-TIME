@@ -10,6 +10,7 @@ const darkModeToggle = document.getElementById("darkMode");
 const modeIcon = document.getElementById("modeIcon");
 const foodContainer = document.getElementById("food-container");
 
+// Function to toggle the message popup
 function togglePopup() {
   const overlay = document.getElementById("popupOverlay");
   overlay.classList.toggle("show");
@@ -49,7 +50,7 @@ tabButtons.forEach((button) => {
     // Check if the active board is 'health-and-wellness'
     if (activeBoard === "health-and-wellness") {
       // Fetch and display food image
-      await addFoodToThePage(); // New code
+      await addFoodToThePage();
     }
   });
 });
@@ -153,7 +154,7 @@ async function handleLike(id, element) {
 async function handleDelete(id, element) {
   const confirmed = confirm("Are you sure you want to delete this post?");
   if (confirmed) {
-    await fetch(`http://localhost:8080/add/${id}`, {
+    await fetch(`http://localhost:8080/data/${id}`, {
       method: "DELETE",
     });
     element.remove(); // Remove the message from the UI
@@ -175,15 +176,14 @@ function showNotification(message) {
 // Load the default board on startup
 fetchData(activeBoard);
 
-//darkmode stuff
-//checking if darkmode enabled previously
+// Dark mode functionality
 if (localStorage.getItem("dark-mode") === "enabled") {
   document.body.classList.add("dark-mode");
   modeIcon.classList.remove("fa-moon");
   modeIcon.classList.add("fa-sun");
 }
 
-//toggle dark mode on button click
+// Toggle dark mode on button click
 darkModeToggle.addEventListener("click", function () {
   document.body.classList.toggle("dark-mode");
 
@@ -199,6 +199,7 @@ darkModeToggle.addEventListener("click", function () {
   }
 });
 
+// Fetch food data
 async function getFood() {
   const response = await fetch("https://foodish-api.com/api/");
   const data = await response.json();
@@ -214,11 +215,75 @@ function createFood(foodUrl) {
 }
 
 async function addFoodToThePage() {
-  // foodContainer.innerHTML = "";
   const foodUrl = await getFood();
   createFood(foodUrl);
 }
 
-window.onload = function () {
-  fetchData(activeBoard);
-};
+// Load food when the health-and-wellness tab is activated
+tabButtons.forEach((button) => {
+  button.addEventListener("click", async () => {
+    if (button.dataset.board === "health-and-wellness") {
+      await addFoodToThePage();
+    }
+  });
+});
+
+// Login functionality
+const btnOpenLoginPopup = document.getElementById("btn-open-login-popup");
+const btnCloseLoginPopup = document.getElementById("btn-close-login-popup");
+const loginPopupOverlay = document.getElementById("login-popup-overlay");
+const loginForm = document.getElementById("login-form");
+const loginErrorMsgHolder = document.getElementById("login-error-msg-holder");
+const createAccountButton = document.getElementById("create-account-button");
+const registerHereButton = document.getElementById("register-here-button");
+const createAccountSection = document.getElementById("create-account-section");
+
+btnOpenLoginPopup.addEventListener("click", () => {
+  loginPopupOverlay.style.display = "flex";
+});
+
+btnCloseLoginPopup.addEventListener("click", () => {
+  loginPopupOverlay.style.display = "none";
+  createAccountSection.style.display = "none";
+});
+
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const username = document.getElementById("username-field").value;
+  const password = document.getElementById("password-field").value;
+
+  if (localStorage.getItem(username) === password) {
+    alert("Login successful! Welcome, " + username + "!");
+    loginPopupOverlay.style.display = "none";
+  } else {
+    loginErrorMsgHolder.style.display = "block";
+  }
+});
+
+createAccountButton.addEventListener("click", () => {
+  const newUsername = document.getElementById("new-username-field").value;
+  const newPassword = document.getElementById("new-password-field").value;
+
+  // Validation for username and password
+  const usernameValid = newUsername.length >= 6;
+  const passwordValid = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Za-z]).{1,}$/.test(
+    newPassword
+  );
+
+  if (usernameValid && passwordValid) {
+    localStorage.setItem(newUsername, newPassword);
+    alert("Account created successfully! You can now log in.");
+    document.getElementById("new-username-field").value = "";
+    document.getElementById("new-password-field").value = "";
+    createAccountSection.style.display = "none";
+  } else {
+    alert(
+      "Username must be at least 6 characters long and password must contain at least one number and one special character."
+    );
+  }
+});
+
+registerHereButton.addEventListener("click", () => {
+  createAccountSection.style.display = "block";
+});
