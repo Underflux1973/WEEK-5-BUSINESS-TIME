@@ -7,6 +7,8 @@ const tabButtons = document.querySelectorAll(".tab-button");
 const loadingIndicator = document.getElementById("loading");
 let activeBoard = "chat";
 const darkModeToggle = document.getElementById("darkMode");
+const modeIcon = document.getElementById("modeIcon");
+const foodContainer = document.getElementById("food-container");
 
 function togglePopup() {
   const overlay = document.getElementById("popupOverlay");
@@ -30,7 +32,8 @@ messageForm.addEventListener("submit", handleSubmitButton);
 
 // Tab switching logic
 tabButtons.forEach((button) => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", async () => {
+    foodContainer.innerHTML = "";
     document.querySelectorAll(".message-container").forEach((container) => {
       container.classList.remove("active");
     });
@@ -42,6 +45,12 @@ tabButtons.forEach((button) => {
     document.getElementById(activeBoard).classList.add("active"); // Show selected board
     button.classList.add("active"); // Highlight clicked tab
     fetchData(activeBoard); // Fetch messages for the selected board
+
+    // Check if the active board is 'health-and-wellness'
+    if (activeBoard === "health-and-wellness") {
+      // Fetch and display food image
+      await addFoodToThePage(); // New code
+    }
   });
 });
 
@@ -170,28 +179,30 @@ fetchData(activeBoard);
 //checking if darkmode enabled previously
 if (localStorage.getItem("dark-mode") === "enabled") {
   document.body.classList.add("dark-mode");
+  modeIcon.classList.remove("fa-moon");
+  modeIcon.classList.add("fa-sun");
 }
 
 //toggle dark mode on button click
 darkModeToggle.addEventListener("click", function () {
   document.body.classList.toggle("dark-mode");
 
+  // Check if dark mode is enabled or not
   if (document.body.classList.contains("dark-mode")) {
-    localStorage.setItem("dark-mode", "enable");
+    localStorage.setItem("dark-mode", "enabled");
+    modeIcon.classList.remove("fa-moon");
+    modeIcon.classList.add("fa-sun");
   } else {
     localStorage.removeItem("dark-mode");
+    modeIcon.classList.remove("fa-sun");
+    modeIcon.classList.add("fa-moon");
   }
 });
 
-const foodContainer = document.getElementById("food-container");
-
 async function getFood() {
   const response = await fetch("https://foodish-api.com/api/");
-  console.log(response);
   const data = await response.json();
-  console.log(data);
   const wrangledData = data.image;
-  console.log(wrangledData);
   return wrangledData;
 }
 
@@ -203,8 +214,11 @@ function createFood(foodUrl) {
 }
 
 async function addFoodToThePage() {
-  const getFodData = await getFood();
-  createFood(getFodData);
+  // foodContainer.innerHTML = "";
+  const foodUrl = await getFood();
+  createFood(foodUrl);
 }
 
-addFoodToThePage();
+window.onload = function () {
+  fetchData(activeBoard);
+};
