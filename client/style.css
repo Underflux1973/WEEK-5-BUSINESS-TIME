@@ -163,3 +163,9 @@ body.dark-mode .forum-message {
   z-index: 1000;
   transition: opacity 0.5s ease;
 }
+
+#food-container > img {
+  height: 300px;
+  width: 300px;
+  object-fit: scale-down;
+}
