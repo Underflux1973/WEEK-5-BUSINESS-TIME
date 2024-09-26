@@ -74,7 +74,7 @@ app.post(
 
 // Endpoint to like a message
 app.post(
-  "data/:id/like",
+  "/data/:id/like",
 
   async (req, res) => {
     const { id } = req.params; // Get the message ID from the URL parameters
