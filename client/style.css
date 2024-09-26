@@ -22,7 +22,9 @@ body.dark-mode {
   transition: background-color 0.3s ease;
 }
 
-#darkMode:hover,
+#darkMode:hover {
+  background-color: rgb(187, 71, 4);
+}
 #darkMode.active {
   background-color: rgb(187, 71, 4);
 }
