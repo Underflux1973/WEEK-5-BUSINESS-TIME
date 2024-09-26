@@ -27,9 +27,7 @@ app.listen(PORT, () => {
 
 // Endpoint to fetch messages based on board type
 app.get(
-
-  "https://week-5-business-time-1-dvoa.onrender.com/data",
- 
+  "/data",
 
   async (req, res) => {
     const board = req.query.board; // Get the board name from the query parameter
@@ -50,10 +48,7 @@ app.get(
 
 // Endpoint to add a new message
 app.post(
-
-  "https://week-5-business-time-1-dvoa.onrender.com/add-data",
-
-
+  "/add-data",
 
   async (req, res) => {
     const { name, location, message_post, board } = req.body; // Extract data from the request body
@@ -79,10 +74,7 @@ app.post(
 
 // Endpoint to like a message
 app.post(
-
-  "https://week-5-business-time-1-dvoa.onrender.com/data/:id/like",
-  
-
+  "data/:id/like",
 
   async (req, res) => {
     const { id } = req.params; // Get the message ID from the URL parameters
@@ -104,8 +96,7 @@ app.post(
 
 // Endpoint to delete a message
 app.delete(
-
-  "https://week-5-business-time-1-dvoa.onrender.com/data/:id",
+  "/data/:id",
 
   async (req, res) => {
     const { id } = req.params; // Get the message ID from the URL

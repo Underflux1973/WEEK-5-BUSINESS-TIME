@@ -97,7 +97,9 @@ function addForumMessageToPage(data, board) {
 // Fetch data for the active board
 async function fetchData(board) {
   showLoadingIndicator(); // Show loading indicator
-  const response = await fetch(`http://localhost:8080/data?board=${board}`);
+  const response = await fetch(
+    `https://week-5-business-time-dvoa.onrender.com/data?board=${board}`
+  );
   const forumMessages = await response.json();
   forumMessages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
@@ -125,13 +127,16 @@ async function handleSubmitButton(event) {
   formValues.board = activeBoard;
 
   try {
-    const response = await fetch("http://localhost:8080/add-data", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formValues),
-    });
+    const response = await fetch(
+      "https://week-5-business-time-dvoa.onrender.com/add-data",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formValues),
+      }
+    );
     const newMessage = await response.json();
     addForumMessageToPage(newMessage, activeBoard);
     messageForm.reset();
@@ -143,9 +148,12 @@ async function handleSubmitButton(event) {
 }
 
 async function handleLike(id, element) {
-  const response = await fetch(`http://localhost:8080/data/${id}/like`, {
-    method: "POST",
-  });
+  const response = await fetch(
+    `https://week-5-business-time-dvoa.onrender.com/data/${id}/like`,
+    {
+      method: "POST",
+    }
+  );
   const updatedData = await response.json();
   element.querySelector(".like-count").textContent = updatedData.likes; // Update like count in the UI
 }
@@ -153,7 +161,7 @@ async function handleLike(id, element) {
 async function handleDelete(id, element) {
   const confirmed = confirm("Are you sure you want to delete this post?");
   if (confirmed) {
-    await fetch(`http://localhost:8080/data/${id}`, {
+    await fetch(`https://week-5-business-time-dvoa.onrender.com/data/${id}`, {
       method: "DELETE",
     });
     element.remove(); // Remove the message from the UI
