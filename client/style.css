@@ -109,7 +109,7 @@ h1 {
 }
 
 #popupOverlay {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -124,8 +124,8 @@ h1 {
 }
 
 #popupOverlay.show {
-  display: flex; /* Show as flex container when activated */
-  opacity: 1; /* Smooth transition in */
+  display: flex;
+  opacity: 1;
 }
 
 #popup-box {
@@ -206,7 +206,6 @@ body.dark-mode .forum-message {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    font-size: small;
   }
 }
 /*tablet media query*/
@@ -215,7 +214,11 @@ body.dark-mode .forum-message {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    font-size: medium;
+  }
+  .tab-button {
+    display: flex;
+    width: 22vw;
+    justify-content: center;
   }
 }
 /*desktop media query */
@@ -224,13 +227,14 @@ body.dark-mode .forum-message {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    font-size: larger;
   }
   .tab-button {
     display: flex;
-    width: 200px;
+    width: 10vw;
     justify-content: center;
   }
   #food-container {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
