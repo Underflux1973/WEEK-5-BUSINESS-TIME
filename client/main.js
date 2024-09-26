@@ -98,7 +98,7 @@ function addForumMessageToPage(data, board) {
 async function fetchData(board) {
   showLoadingIndicator(); // Show loading indicator
   const response = await fetch(
-    `https://week-5-business-time-dvoa.onrender.com/data?board=${board}`
+    `https://week-5-business-time-7zfd.onrender.com/data?board=${board}`
   );
   const forumMessages = await response.json();
   forumMessages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -128,7 +128,7 @@ async function handleSubmitButton(event) {
 
   try {
     const response = await fetch(
-      "https://week-5-business-time-dvoa.onrender.com/add-data",
+      "https://week-5-business-time-7zfd.onrender.com/add-data",
       {
         method: "POST",
         headers: {
@@ -149,7 +149,7 @@ async function handleSubmitButton(event) {
 
 async function handleLike(id, element) {
   const response = await fetch(
-    `https://week-5-business-time-dvoa.onrender.com/data/${id}/like`,
+    `https://weekdata-5-business-time-dvoa.onrender.com//${id}/like`,
     {
       method: "POST",
     }
@@ -161,7 +161,7 @@ async function handleLike(id, element) {
 async function handleDelete(id, element) {
   const confirmed = confirm("Are you sure you want to delete this post?");
   if (confirmed) {
-    await fetch(`https://week-5-business-time-dvoa.onrender.com/data/${id}`, {
+    await fetch(`https://week-5-business-time-7zfd.onrender.com/data/${id}`, {
       method: "DELETE",
     });
     element.remove(); // Remove the message from the UI
