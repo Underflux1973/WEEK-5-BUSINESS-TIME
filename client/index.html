@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="./main.js" defer></script>
     <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/3f5e786f5f.js"
+      crossorigin="anonymous"
+    ></script>
     <title>It's Business Time</title>
   </head>
   <body>
     <header>
       <h1>IT'S BUSINESS TIME!!!</h1>
+      <nav>
+        <button class="tab-button" data-board="chat">Chat</button>
+        <button class="tab-button" data-board="health-and-wellness">
+          Health and Wellness
+        </button>
+        <button class="tab-button" data-board="advice">Advice</button>
+      </nav>
+      <button id="darkMode"><i id="modeIcon" class="fa-solid fa-moon"></i></i></button>
     </header>
-    <nav>
-      <button class="tab-button" data-board="chat">Chat</button>
-      <button class="tab-button" data-board="health-and-wellness">
-        Health and Wellness
-      </button>
-      <button class="tab-button" data-board="advice">Advice</button>
-    </nav>
     <main>
-      <button id="darkMode">Toggle Darkmode</button>
       <!-- Popup button for opening the message form -->
       <button id="btn-open-popup">Click to Open <br />Form here</button>
 
@@ -61,13 +65,9 @@
           <button id="btn-close-popup">Close</button>
         </div>
       </div>
-
       <div id="food-container">
-        <p>
-          If you have trouble thinking about what to have for dinner, here are
-          some visual ideas!
-        </p>
       </div>
+
       <!-- Dynamic message containers for each board -->
       <div id="chat" class="message-container active"></div>
       <div id="health-and-wellness" class="message-container"></div>
